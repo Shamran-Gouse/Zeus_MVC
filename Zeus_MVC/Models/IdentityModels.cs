@@ -20,6 +20,15 @@ namespace Zeus_MVC.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+
+        public DbSet<CartItem> CartItmes { get; set; }
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
