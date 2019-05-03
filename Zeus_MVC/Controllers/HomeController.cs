@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Zeus_MVC.Models;
 
 namespace Zeus_MVC.Controllers
 {
@@ -13,6 +14,9 @@ namespace Zeus_MVC.Controllers
             return View();
         }
 
+        // add LoginPage property in AdminAuthorization
+        //[AdminAuthorization(LoginPage = "~/Account/LoginAdmin")]
+        [AdminAuthorization]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
