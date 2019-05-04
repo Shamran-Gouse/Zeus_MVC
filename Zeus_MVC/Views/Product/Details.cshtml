@@ -1,0 +1,122 @@
+﻿@model Zeus_MVC.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<style>
+    #name {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        background: #fed136;
+        height: auto;
+        display: inline-block;
+        line-height: 25px;
+        color: #FFFFFF;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        margin-top: 10px;
+        font-family: open_sanslight;
+    }
+
+
+    .row > h4 {
+        display: inline-block;
+    }
+
+    .row > span > p {
+        display: inline-block;
+        color: #ff0000;
+        margin-top: 10px;
+        font-family: OpenSans-Regular;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+
+    #details {
+        margin-left: 100px;
+        height: auto;
+        margin-top: 10px;
+        padding: 10px;
+        font-family: OpenSans-Regular;
+        font-size: 20px;
+        line-height: 30px;
+    }
+</style>
+
+<!-- Navigation -->
+@Html.Partial("_UserNavBarStatic")
+
+<div class="container">
+    <div class="row content_top">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  <a href="~/Home/Index"> Home </a>
+                </li>
+                <li>
+                    <i class="fa fa-fw fa-tags"></i><a href="~/Product/Index"> Products </a>
+                </li>
+                <li class="active">
+                    Product Details
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:6%">
+        <div class="col-sm-4 text-center">
+            <img src="~/Product_images/@Model.ImageUrl" alt=@Model.PrductName />
+        </div>
+        <div class="col-sm-8">
+            <div class="row text-center" id="name">
+                @Model.PrductName
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <h4 class="item-intro"> Price : </h4>
+                    <span id="details"> Rs. @Model.Price</span>
+                </div>
+
+                <div class="row">
+                    <h4 class="item-intro"> In Stock : </h4>
+                    <span id="details">@Model.Quantity</span>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div style="margin-top: 10%">
+
+                            @{ Html.RenderAction("AddToCart", "ShoppingCart", new { id = Model.Id }); }
+
+                            @*<p class="button">
+                                    @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = Model.Id }, "")
+                                </p>*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <h4 class="item-intro"><label for="Name"> Details : </label></h4>
+                    <span>@Model.Description</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--   Footer Section -->
+@{
+    ViewBag.FooterClass = "fixed-footer";
+}
+@Html.Partial("_Footer")
+
+

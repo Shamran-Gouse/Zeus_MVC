@@ -1,0 +1,63 @@
+﻿@model PagedList.IPagedList<Zeus_MVC.Models.Product>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<!-- Navigation -->
+@Html.Partial("_UserNavBarStatic")
+
+<!-- Products Grid Section -->
+<div class="container">
+
+    <div class="row content_top">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  <a href="~/Home/Index"> Home </a>
+                </li>
+                <li>
+                    <i class="fa fa-fw fa-tags"></i>Products
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="page-header text-center">
+            <p style="font-size:17px"> Showing (<b>@Model.TotalItemCount</b>) </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <p>Page <b>@Model.PageNumber</b> of <b>@Model.PageCount</b></p>
+        <p>
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="hovereffect">
+                        <img class="img-responsive center-block" src="~/Product_images/@product.ImageUrl" alt=@product.PrductName />
+                        <div class="overlay">
+                            <h2> @product.PrductName </h2>
+                            <a class="info" href="~/Product/details/@product.Id"> details </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="text-center" style="margin-top: 5%">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+</div>
+
+
+<!--   Footer Section -->
+@{
+    ViewBag.FooterClass = "static-footer";
+}
+@Html.Partial("_Footer")

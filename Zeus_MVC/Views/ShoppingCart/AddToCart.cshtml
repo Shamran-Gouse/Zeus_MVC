@@ -1,0 +1,21 @@
+﻿@model Zeus_MVC.Models.CartItem
+
+@using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m => m.Product.Id)
+
+    <div class="col-md-6 text-center">
+        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @placeholder = "Quantity" })
+    </div>
+
+    <div class="col-md-6 text-center">
+        <button class="btn btn-primary" type="submit" name="button" id="button"> <i class="fa fa-shopping-cart fa-lg"></i> &nbsp; Add to Cart </button>
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+    $('#Quantity').val("");
+</script>

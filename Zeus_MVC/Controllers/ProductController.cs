@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,11 +18,17 @@ namespace Zeus_MVC.Controllers
         }
 
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View();
-        }
+            var ProductsInDb = _context.Products.OrderByDescending(p => p.Id).ToList();
 
+            if (ProductsInDb == null)
+                return HttpNotFound();
+
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            return View(ProductsInDb.ToPagedList(pageNumber, pageSize));
+        }
 
         [ChildActionOnly]
         public ActionResult ProductSection()
@@ -36,6 +43,17 @@ namespace Zeus_MVC.Controllers
             {
                 return PartialView();
             }
+        }
+
+        // GET: Product/Details/5
+        public ActionResult Details(int id)
+        {
+            var ProductsInDb = _context.Products.SingleOrDefault(p => p.Id == id);
+
+            if (ProductsInDb == null)
+                return HttpNotFound();
+
+            return View(ProductsInDb);
         }
     }
 }

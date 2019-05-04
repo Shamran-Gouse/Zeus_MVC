@@ -1,0 +1,139 @@
+﻿@model Zeus_MVC.ViewModels.ShoppingCartViewModel
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<style>
+    #tablerow {
+        background: #337ab7;
+        color: #fff;
+        font-size: 16px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+    }
+
+    #tabledata {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
+
+<!-- Navigation -->
+@Html.Partial("_UserNavBarStatic")
+
+<div class="container">
+
+    <div class="row content_top">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  <a href="~/Home/Index"> Home </a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-shopping-cart"></i> CART
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="table-responsive" style="margin-top: 1%;">
+
+        <table class="table table-condensed">
+            <thead>
+                <tr id="tablerow">
+                    <td id="tabledata">Product Image</td>
+                    <td id="tabledata"> Product Description </td>
+                    <td id="tabledata">Unit Price</td>
+                    <td id="tabledata">Quantity</td>
+                    <td id="tabledata">Total</td>
+                    <td id="tabledata">Remove</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.CartItems.Count < 1)
+                {
+                    <div class="text-center" style="padding: 5%;">
+                        <div class="alert alert-danger">
+                            <h2 align="center">Your shopping cart is empty</h2>.
+                        </div>
+                    </div>
+                }
+
+
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+
+                        <td>
+                            <img class="thumbnail" style="margin: 0 0 0 0;" src="~/Product_images/@item.Product.ImageUrl" alt=@item.Product.PrductName width="110" height="110" />
+                        </td>
+
+                        <td>
+                            <h4 style="margin: 7% 0 0 0;"><a href="~/Product/details/@item.Product.Id">@item.Product.PrductName</a></h4><p>Product Code: @item.Product.Id</p>
+                        </td>
+                        <td>
+                            <p style="margin: 25% 0 0 0; color:#696763; font-size: 18px">Rs.@item.Product.Price</p>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("ChangeQuantity", "ShoppingCart", new { id = item.ProductId }, FormMethod.Post))
+                            {
+                                <input style="margin: 16% 0 0 0;" name="quantity" type="text" value=@item.Quantity size="2" maxlength="5">
+
+                                <button class="btn btn-primary" type="submit" name="button" id="button">
+                                    change
+                                </button>
+                            }
+                        </td>
+                        <td>
+                            <p style="margin: 34% 0 0 0; color:#696763; font-size: 18px">@(item.Quantity * item.Product.Price)</p>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("RemoveFromCart", "ShoppingCart", new { id = item.RecordId }, FormMethod.Post, new { style = "margin: 25% 0 0 5%;" }))
+                            {
+                                <button class="btn btn-primary" type="submit" name="button" id="button">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div style="display: inline-block;">
+            <div class="pull-right">
+                @if (Model.CartTotal > 0)
+                {
+                    <div style='font-size:18px; margin-top:12px;' align='right'>Cart Total : Rs.@Model.CartTotal</div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <div style="padding-top: 6%; padding-bottom: 10%;">
+        <div class="col-md-3 text-center">
+            <a href="~/Product/Index" class="btn btn-primary"> <i class="fa fa-arrow-circle-left"></i> &nbsp; Continue Shopping </a>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <a href="~/ShoppingCart/EmptyCart" class="btn btn-primary"> Click Here to Empty Your Shopping Cart &nbsp; <i class="fa fa-times"></i></a>
+        </div>
+
+        <div class="col-md-3 text-center">
+            <a href="~/ShoppingCart/CheckOut" class="btn btn-primary"> Check out &nbsp; <i class="fa fa-arrow-circle-right"></i> </a>
+        </div>
+
+    </div>
+
+</div>
+
+<!--   Footer Section -->
+@{
+    ViewBag.FooterClass = "static-footer";
+}
+@Html.Partial("_Footer")
+
+
