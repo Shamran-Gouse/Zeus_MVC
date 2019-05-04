@@ -19,12 +19,17 @@ namespace Zeus_MVC
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/JavaScript").Include(
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/classie.js",
+                      "~/Scripts/cbpAnimatedHeader.js",
+                      "~/Scripts/custom.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/custom.css",
+                      "~/font-awesome/css/font-awesome.min.css"));
+
         }
     }
 }

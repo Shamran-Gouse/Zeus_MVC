@@ -2,30 +2,116 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top"> Zeus Pvt Ltd</a>
+        </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#Products">Products</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about">About</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">Contact</a>
+                </li>
+
+                <li>
+                    <?php echo $account; ?>
+                </li>
+
+                <li>
+                    <a class="page-scroll" href="~/ShoppingCart/Index" title="Cart"> Cart <i class="fa fa-shopping-cart fa-lg"></i></a>
+                </li>
+
+                <li>
+                    <a class="page-scroll" id="search_button" style="cursor:pointer"> <i class="fa fa-search fa-2x"></i> </a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <!-- /.container-fluid -->
+
+    <div id="search_form" class="navbar-form search_div">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search this site">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+</nav>
+
+
+
+
+<script>
+    $("#search_button").click(function () {
+        $("#search_form").toggle();
+    });
+</script>
+
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-lead-in" style="background: #000000; padding: 5px;">Welcome To Zeus!</div>
+            <div class="intro-heading" style="background: #000000">It's Nice To Meet You</div>
+            <?php echo $signinbtn; ?>
+        </div>
     </div>
-</div>
+</header>
+
+
+<!--Back-to-top-->
+<a href="#" class="back-to-top"></a>
+
+<!-- Products Grid Section -->
+@*@{ Html.RenderAction("ProductSection", "Product"); }*@
+
+<!-- About Section -->
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">About US</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h3 class="section-subheading">Zeus.com, is brought to you by Zeus Pvt Ltd – is a professionally managed "POWER" brand distributor, supplying Nutrion supplements to patients who are suffering from Diabetes in Sri Lanka. At Zeus.com, Clients can buy Nutrion supplements from any corner of the country - with just a few clicks of the mouse.</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+@*@Html.Partial("ContactForm")*@
+
+<!--   Footer Section -->
+@{ 
+    ViewBag.FooterClass = ""; 
+}
+@Html.Partial("_Footer")
