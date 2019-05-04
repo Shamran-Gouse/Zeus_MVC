@@ -9,6 +9,12 @@ namespace Zeus_MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
         public ActionResult Index()
         {
             return View();
@@ -24,11 +30,34 @@ namespace Zeus_MVC.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        // POST: Home/Contact
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Contact(ContactMessage contactMessage)
         {
-            ViewBag.Message = "Your contact page.";
+            try
+            {
+                if (ModelState.IsValid)
+                {
 
-            return View();
+                    contactMessage.Date = DateTime.Now;
+                    contactMessage.Status = MessageStatus.UnRead;
+
+                    _context.ContactMessages.Add(contactMessage);
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index", "Home");
+
+                }
+                else
+                {
+                    return View("Index", contactMessage);
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Home/Legaldisclaimer
