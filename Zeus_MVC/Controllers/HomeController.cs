@@ -30,5 +30,17 @@ namespace Zeus_MVC.Controllers
 
             return View();
         }
+
+        // GET: Home/Legaldisclaimer
+        public ActionResult Legaldisclaimer()
+        {
+            return View();
+        }
+
+        // GET: Home/PrivacyPolicy
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
     }
 }
