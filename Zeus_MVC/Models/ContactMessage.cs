@@ -8,15 +8,15 @@ namespace Zeus_MVC.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Please enter your name.")]
+        [MaxLength(50, ErrorMessage = "Please enter your name.")]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Please enter subject.")]
+        [MaxLength(50, ErrorMessage = "Please enter subject.")]
         public string Subject { get; set; }
 
         [Required]
-        [MaxLength(20, ErrorMessage = "Please enter your email address.")]
+        [MaxLength(100, ErrorMessage = "Please enter your email address.")]
         public string Email { get; set; }
 
         [MaxLength(20, ErrorMessage = "Please enter your phone number.")]

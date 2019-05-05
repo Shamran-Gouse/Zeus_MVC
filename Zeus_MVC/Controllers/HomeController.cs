@@ -52,7 +52,7 @@ namespace Zeus_MVC.Controllers
                     _context.ContactMessages.Add(contactMessage);
                     _context.SaveChanges();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ThanksForContact", "Home");
 
                 }
                 else
@@ -64,6 +64,12 @@ namespace Zeus_MVC.Controllers
             {
                 return View();
             }
+        }
+
+        // GET: Home/ThanksForContact
+        public ActionResult ThanksForContact()
+        {
+            return View();
         }
 
         // GET: Home/Legaldisclaimer

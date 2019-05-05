@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Thanks for Contact";
+}
+
+<!-- Navigation -->
+@Html.Partial("_UserNavBarStatic")
+
+
+
+    <div class="container bg-light-gray" style="padding-top: 4%; padding-bottom: 2%; margin-bottom: 30px;">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>  <a href="~/Home/Index"> Home </a>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope-o"></i> &nbsp; <a href="~/Home/Index#contact"> Contact </a>
+                    </li>
+                    <li class="active">
+                        Thanks
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <h3 class="text-center intro-lead-in">Thank You</h3>
+                    <p class="text-center">
+                        <br>
+                        Your message was successfully sent to the Zeus.com Support Team. You should receive a reply from a representative of our web site by the end of the next business day. Occasionally we receive a very large number of messages, and your response may take a little longer. If this occurs, we appreciate your patience, and we assure you that you will receive a response.
+                        <br>
+                        <br>
+                        Thank you for taking the time to contact us.
+                        <br>
+                        <br>
+                        Have A Great Day,
+                        <br>
+                        <br>
+                        Zeus.com Support Team
+                        <br>
+                    </p>
+                </div>
+                <a href="~/Home/Index" class="pull-right"><i class="fa fa-home fa-4x"></i></a>
+            </div>
+        </div>
+    </div>
+
+<!--   Footer Section -->
+@{
+    ViewBag.FooterClass = "static-footer";
+}
+@Html.Partial("_Footer")
+
