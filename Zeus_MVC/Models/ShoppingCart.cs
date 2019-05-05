@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Zeus_MVC.Models
 {
@@ -12,6 +13,7 @@ namespace Zeus_MVC.Models
         string ShoppingCartId { get; set; }
 
         public const string CartSessionKey = "CartId";
+
         public static ShoppingCart GetCart(HttpContextBase context)
         {
             var cart = new ShoppingCart();
@@ -202,7 +204,7 @@ namespace Zeus_MVC.Models
             {
                 if (!string.IsNullOrWhiteSpace(context.User.Identity.Name))
                 {
-                    context.Session[CartSessionKey] = context.User.Identity.Name;
+                    context.Session[CartSessionKey] = context.User.Identity.Name.ToString();
                 }
                 else
                 {
@@ -221,15 +223,63 @@ namespace Zeus_MVC.Models
         // be associated with their username
         public void MigrateCart(string userName)
         {
-            var shoppingCart = storeDB.CartItmes.Where(
-                c => c.CartId == ShoppingCartId);
+            var CartItmsToBeChanged = storeDB.CartItmes.Where(c => c.CartId == ShoppingCartId).ToList();
 
-            foreach (CartItem item in shoppingCart)
+            var AlreadyExisItems = storeDB.CartItmes.Where(c => c.CartId == userName).ToList();
+
+            
+
+            foreach (CartItem item in CartItmsToBeChanged)
             {
-                item.CartId = userName;
+                var userItem = AlreadyExisItems.SingleOrDefault(cartItem => cartItem.ProductId == item.ProductId);
+
+                if (userItem != null)
+                {
+                    // update the Quantity
+                    userItem.Quantity = userItem.Quantity + item.Quantity;
+
+                    // Remove Duplicate
+                    storeDB.CartItmes.Remove(item);
+                }
+                else
+                {
+                    item.CartId = userName;
+                }
+
             }
 
             storeDB.SaveChanges();
+
+
+
+            //foreach (CartItem item in CartItmsToBeChanged)
+            //{
+
+            //    if (AlreadyExisItems.Any(c => c.ProductId == item.ProductId))
+            //    {
+
+            //        var userItem = storeDB.CartItmes.SingleOrDefault(cart => cart.RecordId == item.RecordId);
+
+            //        if (userItem != null)
+            //        {
+            //            // update the Quantity
+            //            userItem.Quantity = userItem.Quantity + item.Quantity;
+            //            storeDB.SaveChanges();
+
+            //            // Remove Duplicate
+            //            storeDB.CartItmes.Remove(item);
+            //            storeDB.SaveChanges();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        item.CartId = userName;
+            //        storeDB.SaveChanges();
+            //    }
+
+            //}
+
+            //storeDB.SaveChanges();
         }
     }
 }
