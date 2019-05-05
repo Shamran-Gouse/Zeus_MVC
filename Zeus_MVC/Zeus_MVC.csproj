@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201905031935079_Intial.Designer.cs">
       <DependentUpon>201905031935079_Intial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905050811107_UserColumsAdded.cs" />
+    <Compile Include="Migrations\201905050811107_UserColumsAdded.Designer.cs">
+      <DependentUpon>201905050811107_UserColumsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminAuthorization.cs" />
@@ -354,6 +358,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905031935079_Intial.resx">
       <DependentUpon>201905031935079_Intial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905050811107_UserColumsAdded.resx">
+      <DependentUpon>201905050811107_UserColumsAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

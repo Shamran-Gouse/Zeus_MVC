@@ -33,7 +33,7 @@
                 </li>
 
                 <li>
-                    <?php echo $account; ?>
+                    @Html.Partial("_LoginPartial")
                 </li>
 
                 <li>
@@ -79,6 +79,10 @@
             <div class="intro-lead-in" style="background: #000000; padding: 5px;">Welcome To Zeus!</div>
             <div class="intro-heading" style="background: #000000">It's Nice To Meet You</div>
             <?php echo $signinbtn; ?>
+            @if(!Request.IsAuthenticated)
+            {
+                <a href="~/Account/Login" class="btn btn-xl">Login In</a>
+            }
         </div>
     </div>
 </header>

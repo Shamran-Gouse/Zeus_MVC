@@ -20,7 +20,7 @@ namespace Zeus_MVC
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/JavaScript").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/classie.js",
                       "~/Scripts/cbpAnimatedHeader.js",
                       "~/Scripts/custom.js"));

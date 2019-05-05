@@ -2,62 +2,120 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
+    Layout = null;
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> @ViewBag.Title </title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200,400,600|Open+Sans:300,400,700">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <style>
+        #home {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body class="page-signin">
+
+    <div class="container" style="padding-top: 25%">
+
+        <div class="col-md-3 section-signin">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <!-- Log in -->
+
+
+                    <h3 class="text-center">Log in</h3>
+                    <p class="text-center">
+                        <br>
+                        Please use the form below to Log in to your account.
+                        <br>
+                    </p>
+
+
+                    @*<div id="Message">
+            <?php
+            if (isset($_GET['error'])) {
+            echo '<div class="text-center">
+                <div class="alert alert-danger" ">
+                    The email and password you entered did not match.
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
+            </div>';
             }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
 
-@section Scripts {
+            if (isset($_GET['signin'])) {
+            echo '<div class="text-center">
+                <div class="alert alert-success" ">
+                    Please Log in to continue your Purchase.
+                </div>
+            </div>';
+            }
+            ?>
+        </div>*@
+
+                    <!---->
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email *" })
+                            <p class="help-block text-danger text-center">
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password *" })
+                            <p class="help-block text-danger text-center">
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </p>
+                        </div>
+
+                        <div class="form-group text-center" style="padding-top: 3%; padding-bottom: 3%;">
+                            <button class="btn btn-primary" type="submit"> Log in </button>
+                        </div>
+                    }
+                    <!-- end of sign in -->
+                    <!-- the switcher between forms-->
+                    <ul class="toggler text-center small list-unstyled">
+                        <li>Don't have an account? <a class="text-blue" href="~/Account/Register">Register one now</a></li>
+                        <li><a class="text-blue" href="~/Account/Login">Forgot password?</a></li>
+                    </ul>
+
+                    <a href="~/Home/Index" id="home"><i class="fa fa-home fa-4x"></i></a>
+
+                </div>
+            </div>
+            <!-- /panel -->
+        </div>
+    </div>
+    <!-- /container -->
+
+    @Scripts.Render("~/bundles/JavaScript")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-}
+
+</body>
+</html>
