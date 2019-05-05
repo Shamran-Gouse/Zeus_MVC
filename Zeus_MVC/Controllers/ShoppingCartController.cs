@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zeus_MVC.Models;
@@ -11,9 +13,29 @@ namespace Zeus_MVC.Controllers
     public class ShoppingCartController : Controller
     {
         ApplicationDbContext storeDB;
+
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public ShoppingCartController()
         {
             storeDB = new ApplicationDbContext();
+        }
+
+        public ShoppingCartController(ApplicationUserManager userManager) : base()
+        {
+            UserManager = userManager;
         }
 
         //
@@ -122,14 +144,33 @@ namespace Zeus_MVC.Controllers
         //
         // GET: /ShoppingCart/CheckOut
         [Authorize]
-        public ActionResult CheckOut()
+        public async Task<ActionResult> CheckOut()
         {
-            // Add it to the shopping cart
-            //var cart = ShoppingCart.GetCart(this.HttpContext);
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
 
-            //cart.EmptyCart();
+            var order = new Order();
 
-            return RedirectToAction("Index");
+            order.UserId = user.Id;
+            order.OrderDate = DateTime.Now;
+            order.Status = OrderStatus.UnPaid;
+
+            //Save Order
+            //storeDB.Orders.Add(order);
+            //storeDB.SaveChanges();
+
+            //Process the order
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var orderId = cart.CreateOrder(order);
+
+            if(orderId > 0)
+            {
+                return RedirectToAction("Success", "Order");
+            }
+            else
+            {
+                return RedirectToAction("Error404", "Home");
+            }
+
         }
 
     }

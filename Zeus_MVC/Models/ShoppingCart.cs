@@ -186,7 +186,8 @@ namespace Zeus_MVC.Models
             // Set the order's total to the orderTotal count
             order.TotalBill = orderTotal;
 
-            // Save the order
+            //Save Order
+            storeDB.Orders.Add(order);
             storeDB.SaveChanges();
 
             // Empty the shopping cart

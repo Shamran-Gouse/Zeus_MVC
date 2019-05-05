@@ -20,6 +20,12 @@ namespace Zeus_MVC.Controllers
             return View();
         }
 
+        // GET: Home/Error404
+        public ActionResult Error404()
+        {
+            return View();
+        }
+
         // add LoginPage property in AdminAuthorization
         //[AdminAuthorization(LoginPage = "~/Account/LoginAdmin")]
         [AdminAuthorization]
