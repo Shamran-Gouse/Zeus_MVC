@@ -1,0 +1,65 @@
+﻿@model IList<Zeus_MVC.Models.Order>
+@{
+    ViewBag.Title = "Orders";
+}
+
+<!-- Navigation -->
+@Html.Partial("_UserNavBarStatic")
+
+<div class="container">
+
+    <div class="row content_top">
+        <div class="col-xs-12">
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>  <a href="~/Home/Index"> Home </a>
+                </li>
+                <li class="active">
+                    Orders
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row" style="margin-top:3%">
+        <div class="col-xs-offset-1 col-xs-10 col-xs-offset-1">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                        @{
+                            if (Model.ToList().Count() < 1)
+                            {
+                                <div class="text-center" style="padding: 5%;">
+                                    <div class="alert alert-danger">
+                                        <h2 align="center">No Orders Has been placed yet!</h2>.
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach (var order in Model)
+                                {
+                                    <tr class="order_tr" style="margin-top: 10px">
+                                        <td class="pull-left order_td_detail">
+                                            <p>Ordered: @order.OrderDate</p>
+                                            <p>Order Number: @order.Id</p>
+                                            <p>Total: Rs. @order.TotalBill</p>
+                                        </td>
+                                        <td class="pull-right order_td_button"><a class="btn btn-primary" href="~/Order/details/@order.Id"> View Details </a></td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+</div><!-- /.container -->
+<!--   Footer Section -->
+@{
+    ViewBag.FooterClass = "static-footer";
+}
+@Html.Partial("_Footer")
