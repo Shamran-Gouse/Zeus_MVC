@@ -11,6 +11,7 @@ using Zeus_MVC.ViewModels;
 
 namespace Zeus_MVC.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         ApplicationDbContext context;

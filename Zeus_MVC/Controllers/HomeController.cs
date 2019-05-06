@@ -15,6 +15,8 @@ namespace Zeus_MVC.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
+        // GET: Home
         public ActionResult Index()
         {
             return View();
