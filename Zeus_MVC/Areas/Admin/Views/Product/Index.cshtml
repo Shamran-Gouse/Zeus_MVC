@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Zeus_MVC.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Products
+            <a style="margin-left: 5px;" href="~/Admin/Product/Create" class="btn btn-primary"> ADD Products </a>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="~/Admin/Home/Index">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-fw fa-search"></i> All Products
+            </li>
+        </ol>
+    </div>
+</div>
+<!-- /.row -->
+
+
+
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-xs-offset-1">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th> Quantity </th>
+                        <th> Reorder quantity </th>
+                        <th> Price </th>
+                        <th> Date Added </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @if (Model == null)
+                    {
+                        <div class="noproducts"> No Products to Display </div>
+                    }
+                    else
+                    {
+                        foreach (var product in Model)
+                        {
+
+
+                            <tr class="@((product.ReOrder > product.Quantity) ? "danger" : "")">
+                                <td>@product.Id</td>
+                                <td>@product.PrductName</td>
+                                <td>@product.Quantity</td>
+                                <td>@product.ReOrder</td>
+                                <td>@product.Price</td>
+                                <td>@product.DateAdded.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Product", new { id = product.Id })" class="btn btn-xs btn-default"><span class="pull-right"><i class="fa fa-pencil-square-o"></i></span></a>
+
+
+                                    <button type="button" class="btn btn-xs btn-default" data-toggle="modal" data-target="#@product.Id"><span class="pull-right"><i class="fa fa-times"></i></span></button>
+
+                                    <div id=@product.Id class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Delete Parmanently</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Do you really want to delete product with ID of @product.Id?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="@Url.Action("Delete", "Product", new { id = product.Id })" class="btn btn-danger" id="confirm">Delete</a>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->

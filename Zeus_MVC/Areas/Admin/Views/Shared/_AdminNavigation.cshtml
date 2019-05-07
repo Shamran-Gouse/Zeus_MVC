@@ -107,27 +107,13 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                    <i class="fa fa-fw fa-tags"></i>&nbsp; Products <i class="fa fa-fw fa-caret-down"></i>
+                <a href="~/Admin/Product/Index">
+                    <i class="fa fa-fw fa-tags"></i>&nbsp; Products
                     @if (@AppCount.GetProductsReOrderCount() > 0)
                     {
                         <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
                     }
                 </a>
-                <ul id="demo" class="collapse">
-                    <li>
-                        <a href="Add_products.php"><i class="fa fa-fw fa-plus-square"></i> &nbsp; Add Products </a>
-                    </li>
-                    <li>
-                        <a href="AllProducts.php">
-                            <i class="fa fa-fw fa-search"></i> &nbsp; All Products
-                            @if (@AppCount.GetProductsReOrderCount() > 0)
-                            {
-                                <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
-                            }
-                        </a>
-                    </li>
-                </ul>
             </li>
 
             <li>
