@@ -59,20 +59,29 @@
                 <li>
                     <a href="AllOrders.php">
                         <i class="fa fa-fw fa-shopping-cart"></i> Orders
-                        <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnpaidOrderCount() </small>
+                        @if (@AppCount.GetUnpaidOrderCount() > 0)
+                        {
+                            <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnpaidOrderCount() </small>
+                        }
                     </a>
                 </li>
 
                 <li>
                     <a href="AllProducts.php">
                         <i class="fa fa-fw fa-tags"></i> Re-Order
-                        <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
+                        @if (@AppCount.GetProductsReOrderCount() > 0)
+                        {
+                            <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
+                        }
                     </a>
                 </li>
                 <li>
                     <a href="mailbox.php">
                         <i class="fa fa-fw fa-envelope"></i> Inbox
-                        <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnReadMessageCount() </small>
+                        @if (@AppCount.GetUnReadMessageCount() > 0)
+                        {
+                            <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnReadMessageCount() </small>
+                        }
                     </a>
                 </li>
                 <li class="divider"></li>
@@ -86,18 +95,24 @@
     <div id="nav" class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li>
-                <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> &nbsp; Dashboard</a>
+                <a href="~/Admin/Home/Index"><i class="fa fa-fw fa-dashboard"></i> &nbsp; Dashboard</a>
             </li>
             <li>
                 <a href="AllOrders.php">
                     <i class="fa fa-fw fa-shopping-cart"></i> &nbsp; Orders
-                    <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnpaidOrderCount() </small>
+                    @if (@AppCount.GetUnpaidOrderCount() > 0)
+                    {
+                        <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnpaidOrderCount() </small>
+                    }
                 </a>
             </li>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo">
                     <i class="fa fa-fw fa-tags"></i>&nbsp; Products <i class="fa fa-fw fa-caret-down"></i>
-                    <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
+                    @if (@AppCount.GetProductsReOrderCount() > 0)
+                    {
+                        <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
+                    }
                 </a>
                 <ul id="demo" class="collapse">
                     <li>
@@ -106,7 +121,10 @@
                     <li>
                         <a href="AllProducts.php">
                             <i class="fa fa-fw fa-search"></i> &nbsp; All Products
-                            <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
+                            @if (@AppCount.GetProductsReOrderCount() > 0)
+                            {
+                                <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetProductsReOrderCount() </small>
+                            }
                         </a>
                     </li>
                 </ul>
@@ -125,9 +143,12 @@
             </li>
 
             <li>
-                <a href="mailbox.php">
+                <a href="~/Admin/Message/Index">
                     <i class="fa fa-envelope"></i>  &nbsp;  Messages
-                    <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnReadMessageCount() </small>
+                    @if (@AppCount.GetUnReadMessageCount() > 0)
+                    {
+                        <small class="badge pull-right" style="background-color: #fc3; color: #000;"> @AppCount.GetUnReadMessageCount() </small>
+                    }
                 </a>
             </li>
 

@@ -17,6 +17,7 @@ namespace Zeus_MVC.Models
 
         [Required]
         [MaxLength(100, ErrorMessage = "Please enter your email address.")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [MaxLength(20, ErrorMessage = "Please enter your phone number.")]

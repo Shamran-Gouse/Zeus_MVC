@@ -15,7 +15,7 @@
     <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- jQuery for Bootstrap -->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.js"></script>
 
     <!-- Bootstrap JavaScript -->
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -43,8 +43,12 @@
     <!-- /#wrapper -->
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <!-- jQuery for Bootstrap -->
+    <script src="~/Scripts/jquery.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

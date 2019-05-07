@@ -29,16 +29,18 @@
                         <i class="fa fa-envelope fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @{
+                        @if (@AppCount.GetUnReadMessageCount() > 0)
+                        {
                             <div class="huge">
                                 @AppCount.GetUnReadMessageCount()
                             </div>
+
+                            <div>New Messages!</div>
                         }
-                        <div>New Messages!</div>
                     </div>
                 </div>
             </div>
-            <a href="mailbox.php">
+            <a href="~/Admin/Message/Index">
                 <div class="panel-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -56,12 +58,12 @@
                         <i class="fa fa-shopping-cart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @{
+                        @if (@AppCount.GetUnpaidOrderCount() > 0)
+                        {
                             <div class="huge">
                                 @AppCount.GetUnpaidOrderCount()
                             </div>
                         }
-                        <div>New Orders!</div>
                     </div>
                 </div>
             </div>
@@ -83,12 +85,12 @@
                         <i class="fa fa-tags fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @{
+                        @if (@AppCount.GetProductsCount() > 0)
+                        {
                             <div class="huge">
                                 @AppCount.GetProductsCount()
                             </div>
                         }
-                        <div>Products</div>
                     </div>
                 </div>
             </div>
@@ -110,12 +112,12 @@
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        @{
+                        @if (@AppCount.GetClientCount() > 0)
+                        {
                             <div class="huge">
                                 @AppCount.GetClientCount()
                             </div>
                         }
-                        <div>Clients</div>
                     </div>
                 </div>
             </div>

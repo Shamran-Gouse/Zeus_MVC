@@ -1,0 +1,121 @@
+﻿@using Zeus_MVC.Models
+@using Zeus_MVC.Areas.Admin.Models
+
+@model Zeus_MVC.Models.ContactMessage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<!-- MAILBOX BEGIN -->
+<div class="mailbox row">
+    <div class="col-xs-12">
+        <div class="box box-solid" style="margin-top: 15px;">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        <!-- BOXES are complex enough to move the .box-header around.
+                             This is an example of having the box header within the box body -->
+                        <div class="box-header">
+                            <i class="fa fa-inbox"></i>
+                            <h3 class="box-title">INBOX</h3>
+                        </div>
+                        <!-- Navigation - folders-->
+                        <div style="margin-top: 15px;">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li class="active">
+                                    <a href="~/Admin/Message/Index">
+                                        <i class="fa fa-inbox"></i>
+                                        Inbox
+
+                                        @if (@AppCount.GetUnReadMessageCount() > 0)
+                                        {
+                                            @: (@AppCount.GetUnReadMessageCount())
+                                        }
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- /.col (LEFT) -->
+
+                    <div class="col-md-9 col-sm-8">
+
+                        <!-- THE MESSAGES -->
+                        <div class="row" style="padding: 15px;">
+                            <div class="pull-right">
+                                <p> @Model.Date </p>
+
+                                <div class="clearfix"></div>
+
+                                <div class="pull-right" style="margin-right: 20px;">
+
+                                    @using (Html.BeginForm("Delete", "Message", new { @id = Model.Id }, FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="button" style="margin-bottom: 30%;" class="btn btn-danger pull-right" data-toggle="modal" data-target="#@Model.Id"><span class="pull-right"><i class="fa fa-trash"></i></span></button>
+
+                                        <div id=@Model.Id class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Delete Parmanently</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Do you really want to delete this Message with ID of @Model.Id?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger" id="confirm">Delete</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                    @using (Html.BeginForm("ToggleRead", "Message", new { @id = Model.Id }, FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        if (Model.Status == MessageStatus.Read)
+                                        {
+                                            <button type="submit" class="btn btn-primary"> Mark as Unread </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="btn btn-primary"> Mark as Read </button>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <table>
+                                <tr>
+                                    <td><strong style="padding-left: 15px;"> @Model.Name </strong>&nbsp; &laquo; @Model.Email &raquo; </td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="padding-left: 15px;"> Tel: </strong> @Model.PhoneNumber </td>
+                                </tr>
+                                <tr>
+                                    <td><p style="padding-left: 15px;"><br><br><br><strong> Message: </strong></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="padding-left: 5%; padding-bottom: 8%; width: 95%; height: auto;"> @Model.Message </p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- /.THE MESSAGES -->
+                    </div><!-- /.col (RIGHT) -->
+                </div><!-- /.row -->
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div><!-- /.col (MAIN) -->
+</div>
+<!-- MAILBOX END -->
