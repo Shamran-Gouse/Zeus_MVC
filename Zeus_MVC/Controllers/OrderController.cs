@@ -60,7 +60,7 @@ namespace Zeus_MVC.Controllers
             return View();
         }
 
-        // GET: Order/Success
+        // GET: Order/Details/5
         public async Task<ActionResult> Details(int id)
         {
             var user = await UserManager.FindByNameAsync(User.Identity.Name);

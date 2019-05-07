@@ -57,7 +57,7 @@
                 </a>*@
             <ul class="dropdown-menu">
                 <li>
-                    <a href="AllOrders.php">
+                    <a href="~/Admin/Order/Index">
                         <i class="fa fa-fw fa-shopping-cart"></i> Orders
                         @if (@AppCount.GetUnpaidOrderCount() > 0)
                         {
@@ -98,7 +98,7 @@
                 <a href="~/Admin/Home/Index"><i class="fa fa-fw fa-dashboard"></i> &nbsp; Dashboard</a>
             </li>
             <li>
-                <a href="AllOrders.php">
+                <a href="~/Admin/Order/Index">
                     <i class="fa fa-fw fa-shopping-cart"></i> &nbsp; Orders
                     @if (@AppCount.GetUnpaidOrderCount() > 0)
                     {
