@@ -1,7 +1,11 @@
 ﻿@using Zeus_MVC.Areas.Admin.Models
+@using Microsoft.AspNet.Identity
 
+<!-- jQuery for Bootstrap -->
+<script src="~/Scripts/jquery.js"></script>
 
-@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>*@
+<!-- Bootstrap JavaScript -->
+<script src="~/Scripts/bootstrap.min.js"></script>
 
 <script>
     $("ul").click(function () {
@@ -39,22 +43,18 @@
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav" style="padding-right: 5%;">
         <li class="dropdown">
-            @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-user"></i> <?php echo $user['username']; ?> <b class="caret"></b>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user"></i> @User.Identity.GetUserName() <b class="caret"></b>
+                @{
+                    var count = AppCount.GetUnpaidOrderCount() + AppCount.GetProductsReOrderCount() + AppCount.GetUnReadMessageCount();
 
-                    <?php
-                    $allcount = "";
-
-                    $allcount = $Ordercount + $reordercount + $messagecount;
-
-                    if($allcount > 0){
-
-                    echo '<small class="badge pull-right" style="background-color: #fc3; color: #000; margin-left: 8px;">'.$allcount.'</small>';
+                    if (count > 0)
+                    {
+                        <small class="badge pull-right" style="background-color: #fc3; color: #000; margin-left: 8px;">@count</small>
                     }
-                    ?>
+                }
+            </a>
 
-
-                </a>*@
             <ul class="dropdown-menu">
                 <li>
                     <a href="~/Admin/Order/Index">
@@ -67,7 +67,7 @@
                 </li>
 
                 <li>
-                    <a href="AllProducts.php">
+                    <a href="~/Admin/Product/Index">
                         <i class="fa fa-fw fa-tags"></i> Re-Order
                         @if (@AppCount.GetProductsReOrderCount() > 0)
                         {
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="mailbox.php">
+                    <a href="~/Admin/Message/Index">
                         <i class="fa fa-fw fa-envelope"></i> Inbox
                         @if (@AppCount.GetUnReadMessageCount() > 0)
                         {
@@ -85,8 +85,14 @@
                     </a>
                 </li>
                 <li class="divider"></li>
+
+                @using (Html.BeginForm("AdminLogOff", "Account", new { area = ""}, FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                }
+
                 <li>
-                    <a href="storescripts/admin_logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -125,7 +131,7 @@
             </li>
 
             <li>
-                <a href="Create_Admin.php"><i class="fa fa-fw fa-user-plus"></i> &nbsp; Create Admin User </a>
+                <a href="~/Account/AdminRegister"><i class="fa fa-fw fa-user-plus"></i> &nbsp; Create Admin User </a>
             </li>
 
             <li>

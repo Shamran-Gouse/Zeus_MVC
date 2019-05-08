@@ -8,9 +8,11 @@ using System.Web.Mvc;
 using Zeus_MVC.Models;
 using Zeus_MVC.ViewModels;
 using System.Data.Entity;
+using Zeus_MVC.Areas.Admin.Models;
 
 namespace Zeus_MVC.Areas.Admin.Controllers
 {
+    [AdminAuthorization(Roles = "Admin")]
     public class OrderController : Controller
     {
         ApplicationDbContext _context;

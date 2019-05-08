@@ -28,16 +28,6 @@ namespace Zeus_MVC.Controllers
             return View();
         }
 
-        // add LoginPage property in AdminAuthorization
-        //[AdminAuthorization(LoginPage = "~/Account/LoginAdmin")]
-        [AdminAuthorization]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
         // POST: Home/Contact
         [HttpPost]
         [ValidateAntiForgeryToken]

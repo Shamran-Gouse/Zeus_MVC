@@ -52,7 +52,7 @@ namespace Zeus_MVC.Areas.Admin.Models
 
         public static int GetClientCount()
         {
-            var count = _context.Users.Where(u => u.ClientName != "").Count();
+            var count = _context.Users.Where(u => u.ClientName != null).Count();
 
             if (count <= 0)
                 return 0;

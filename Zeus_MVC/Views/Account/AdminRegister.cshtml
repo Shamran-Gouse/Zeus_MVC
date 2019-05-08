@@ -1,0 +1,120 @@
+﻿@model Zeus_MVC.Areas.Admin.Models.AdminRegisterViewModel
+
+@{
+    ViewBag.Title = "Create Admin User";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Create Admin User
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="~/Admin/Home/Index">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-fw fa-user-plus"></i> Create Admin User
+            </li>
+        </ol>
+    </div>
+</div>
+<!-- /.row -->
+
+
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default" style="margin:10% 0 20% 0">
+            <div class="panel-heading">
+                <strong> Create Admin User </strong>
+            </div> <!--END pannel heading-->
+            <div class="panel-body">
+
+                @{
+                    if (TempData["success"] != null)
+                    {
+                        <div id="Message">
+                            <div class="center">
+                                <div class="text-center">
+                                    <div class="alert alert-success">
+                                        <strong> @TempData["success"].ToString() </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (TempData["error"] != null)
+                    {
+                        <div id="Message">
+                            <div class="center" style="padding-top: 15px; padding-bottom: 15px;">
+                                <div class="text-center">
+                                    <div class="alert alert-danger">
+                                        <strong> @TempData["error"].ToString()</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (TempData["adminerror"] != null)
+                    {
+                        <div id="Message">
+                            <div class="center" style="padding-top: 15px; padding-bottom: 15px;">
+                                <div class="text-center">
+                                    <div class="alert alert-danger">
+                                        <strong> @TempData["adminerror"].ToString() </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                @using (Html.BeginForm("AdminRegister", "Account", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email *" })
+                        <p class="help-block text-danger text-center">
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password *" })
+                        <p class="help-block text-danger text-center">
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword)
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password *" })
+                        <p class="help-block text-danger text-center">
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ZeusAdminPassword)
+                        @Html.PasswordFor(m => m.ZeusAdminPassword, new { @class = "form-control", @placeholder = "Zeus Admin Password *" })
+                        <p class="help-block text-danger text-center">
+                            @Html.ValidationMessageFor(m => m.ZeusAdminPassword)
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-default"> Submit </button>
+                    </div>
+                }
+
+            </div> <!--END pannel body-->
+        </div> <!--END pannel-->
+    </div> <!--END column-->
+</div> <!--END row-->

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Zeus_MVC.Models
+namespace Zeus_MVC.Areas.Admin.Models
 {
     public class AdminAuthorization : AuthorizeAttribute
     {
@@ -13,7 +13,7 @@ namespace Zeus_MVC.Models
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!filterContext.HttpContext.User.Identity.IsAuthenticated || filterContext.HttpContext.User.IsInRole("User"))
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated || !filterContext.HttpContext.User.IsInRole("Admin"))
             {
                 filterContext.HttpContext.Response.Redirect("~/Account/AdminLogin");
             }

@@ -7,8 +7,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Zeus_MVC.Areas.Admin.Models;
 using Zeus_MVC.Models;
 
 namespace Zeus_MVC.Controllers
@@ -74,6 +76,20 @@ namespace Zeus_MVC.Controllers
             Session.Abandon();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminLogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            //Session[ShoppingCart.CartSessionKey]
+            Session.Abandon();
+
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
         }
 
         //
@@ -174,6 +190,104 @@ namespace Zeus_MVC.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        //
+        // POST: /Account/AdminLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AdminLogin(LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
+
+        //
+        // GET: /Account/AdminRegister
+        [AdminAuthorization(Roles = "Admin")]
+        public ActionResult AdminRegister()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/AdminRegister
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AdminAuthorization(Roles = "Admin")]
+        public async Task<ActionResult> AdminRegister(AdminRegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.ZeusAdminPassword == "Gr@de123")
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                    };
+
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                        if (!await roleManager.RoleExistsAsync("Admin"))
+                        {
+                            await roleManager.CreateAsync(new IdentityRole("Admin"));
+                        }
+
+                        await UserManager.AddToRoleAsync(user.Id, "Admin");
+
+
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        TempData["success"] = "Successfully Created.";
+                        return View();
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        //return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+                else
+                {
+                    // If we got this far, something failed, redisplay form
+                    TempData["adminerror"] = "Admin Password did not match.";
+                    return View(model);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            TempData["error"] = "Sorry Something went wrong.";
+            return View(model);
         }
 
         //
