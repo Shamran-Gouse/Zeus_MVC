@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Zeus_MVC.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Clients";
+}
+
+<style>
+    td a {
+        display: block;
+    }
+</style>
+
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Clients
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i>  <a href="~/Admin/Home/Index">Dashboard</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-fw fa-users"></i> Clients
+            </li>
+        </ol>
+    </div>
+</div>
+<!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-xs-offset-1">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped" data-link="row">
+                <thead>
+                    <tr>
+                        <th> Name </th>
+                        <th> Hospital / Company </th>
+                        <th> Phone Number </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model == null)
+                    {
+                        <div class="noproducts"> No Clients to Display </div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><a href="~/Admin/Client/Details/@item.Id">@item.ClientName </a></td>
+                                <td><a href="~/Admin/Client/Details/@item.Id">@item.CompanyORHospital </a></td>
+                                <td><a href="~/Admin/Client/Details/@item.Id">@item.PhoneNumber </a></td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
