@@ -179,6 +179,7 @@
     <Compile Include="Areas\Admin\Controllers\MessageController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SearchController.cs" />
     <Compile Include="Areas\Admin\Models\AdminAccountViewModel.cs" />
     <Compile Include="Areas\Admin\Models\AppCount.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Client\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Client\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Search\Product.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
